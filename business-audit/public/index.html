@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Presence Audit</title>
+<meta name="description" content="Score any business website in under a minute and turn the results into a lead.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand-mark">
+      <div class="brand-dot" id="brandDot">A</div>
+      <div class="brand-text">
+        <b id="brandName">Digital Presence Audit</b>
+        <span id="brandTagline">Find the gaps, then start the conversation</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="ghost" href="report.html">Open a saved report</a>
+    </div>
+  </div>
+
+  <div id="localWarning"></div>
+
+  <h1>Score a business's online presence in under a minute.</h1>
+  <p class="lede">
+    Enter a business name and website. You get a scored, branded report showing exactly what is
+    costing them customers — ready to send on WhatsApp. Works for schools, clinics, salons,
+    shops, logistics, anyone.
+  </p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="single">Single audit</button>
+    <button class="tab" data-tab="bulk">Bulk audit (lead hunting)</button>
+    <button class="tab" data-tab="leads">My lead list <span id="leadCount"></span></button>
+    <button class="tab" data-tab="help">How to use it</button>
+  </div>
+
+  <!-- ============ SINGLE ============ -->
+  <section class="panel active" id="panel-single">
+    <div class="card">
+      <h2>Audit one business</h2>
+      <form id="singleForm">
+        <div class="row">
+          <div class="field">
+            <label for="s-name">Business name *</label>
+            <input id="s-name" name="name" placeholder="Bright Future Academy" required autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="s-url">Website address</label>
+            <input id="s-url" name="url" placeholder="brightfutureacademy.com" autocomplete="off">
+            <div class="hint">Leave empty if they have no website — that is the strongest lead of all.</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-phone">Phone (optional)</label>
+            <input id="s-phone" name="phone" placeholder="0801 234 5678" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="s-instagram">Instagram / Facebook (optional)</label>
+            <input id="s-instagram" name="instagram" placeholder="@brightfuture" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="s-notes">Your notes (optional)</label>
+            <input id="s-notes" name="notes" placeholder="Owner: Mrs. Ada. Met at the market." autocomplete="off">
+          </div>
+        </div>
+        <label class="checkline">
+          <input type="checkbox" id="s-save" checked>
+          Add this business to my lead list
+        </label>
+        <div class="actions">
+          <button class="primary" type="submit" id="s-submit">Run audit</button>
+          <span id="s-status" class="hint"></span>
+        </div>
+      </form>
+      <div id="s-log" class="progress-log"></div>
+    </div>
+  </section>
+
+  <!-- ============ BULK ============ -->
+  <section class="panel" id="panel-bulk">
+    <div class="card">
+      <h2>Audit a whole list</h2>
+      <p class="lede" style="font-size:15px;margin-bottom:14px;">
+        Paste one business per line as <code>Business Name, website.com, phone</code>, or import a
+        spreadsheet. Website and phone are both optional. Lines with a name but no website are scored
+        as "no website" — those are usually your hottest prospects. Up to 100 per run.
+      </p>
+      <form id="bulkForm">
+        <div class="field">
+          <label for="b-list">Business list</label>
+          <textarea id="b-list" placeholder="Bright Future Academy, brightfutureacademy.com, 08031234567&#10;Grace Clinic, graceclinic.ng&#10;Ada's Salon&#10;City Logistics, citylogistics.com, 08029876543"></textarea>
+        </div>
+        <div class="field">
+          <label for="b-file">Import a list (optional)</label>
+          <input type="file" id="b-file" accept=".csv,.txt,text/csv,text/plain">
+          <div class="hint">Accepts a .csv or .txt file with one business per row. A header row is skipped automatically.</div>
+        </div>
+        <label class="checkline">
+          <input type="checkbox" id="b-save" checked>
+          Add results to my lead list
+        </label>
+        <div class="actions">
+          <button class="primary" type="submit" id="b-submit">Run bulk audit</button>
+          <button class="ghost" type="button" id="b-stop" style="display:none;">Stop</button>
+          <button class="ghost" type="button" id="b-csv" style="display:none;">Download CSV</button>
+        </div>
+      </form>
+      <div id="b-log" class="progress-log"></div>
+      <div id="b-results" style="margin-top:18px;"></div>
+    </div>
+  </section>
+
+  <!-- ============ LEADS ============ -->
+  <section class="panel" id="panel-leads">
+    <div class="card">
+      <h2>Lead list</h2>
+      <p class="lede" style="font-size:15px;">Every audit you save lands here, worst score first — work the list from the top.</p>
+      <div class="actions" style="margin-bottom:14px;">
+        <button class="ghost" type="button" id="l-refresh">Refresh</button>
+        <a class="ghost" href="/api/leads.csv">Download CSV</a>
+      </div>
+      <div id="l-body"><p class="hint">Loading…</p></div>
+    </div>
+  </section>
+
+  <!-- ============ HELP ============ -->
+  <section class="panel" id="panel-help">
+    <div class="card">
+      <h2>The outreach playbook</h2>
+      <ol style="color:#c3cbe6;font-size:15px;padding-left:20px;">
+        <li style="margin-bottom:9px;"><b>Deploy this tool once.</b> Report links are built from your <code>publicUrl</code> in <code>config.js</code>. Until you deploy it and set that, links only work on your own computer. See the README.</li>
+        <li style="margin-bottom:9px;"><b>Build a list of 25.</b> Any niche, one niche at a time — 25 schools, or 25 salons.</li>
+        <li style="margin-bottom:9px;"><b>Collect their details.</b> Grab each business's website and WhatsApp number from their Instagram or Facebook page, note them in a spreadsheet, then import it on the bulk tab.</li>
+        <li style="margin-bottom:9px;"><b>Run the bulk audit.</b> The worst scores, and anyone with no website at all, are your best prospects because they have the most to gain.</li>
+        <li style="margin-bottom:9px;"><b>Send the report, not a pitch.</b> WhatsApp the share link plus one line: "I checked your site — here's your free report, no charge." The report sells; you don't have to.</li>
+        <li style="margin-bottom:9px;"><b>Track every lead.</b> Mark each one Contacted on the lead list so you never message anyone twice. Update to Replied, Won or Lost as it progresses.</li>
+        <li style="margin-bottom:9px;"><b>Follow up once</b> after three days with the single most expensive issue: "The one that costs you the most is that nothing on the site is clickable to call."</li>
+        <li><b>Quote a fixed price</b> to fix the top three items. Small, clear, fast.</li>
+      </ol>
+      <div class="note info">
+        This tool only reads publicly available pages, the same way a browser does. Keep it that way:
+        audit a handful of sites at a time, and stop if anyone asks you to.
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    Built for lead generation. Reports are generated from public page markup and may not capture
+    everything a real browser renders — always confirm on the live site before quoting.
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="shared.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

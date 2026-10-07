@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Audit Report</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar no-print">
+    <div class="brand-mark">
+      <div class="brand-dot" id="brandDot">A</div>
+      <div class="brand-text">
+        <b id="brandName">Website Audit</b>
+        <span id="brandTagline"></span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="ghost" href="index.html">New audit</a>
+      <button class="ghost" type="button" id="copyLink">Copy share link</button>
+      <button class="ghost" type="button" id="waSend">Send on WhatsApp</button>
+      <button class="ghost" type="button" id="printBtn">Save as PDF</button>
+      <button class="ghost" type="button" id="jsonBtn">Download JSON</button>
+    </div>
+  </div>
+
+  <div id="app"><p class="lede">Loading report…</p></div>
+
+  <div class="footer" id="reportFooter"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="shared.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
